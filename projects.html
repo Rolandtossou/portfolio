@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projets</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+       
+
+    
+        input {
+            width: 15%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+         /* Container centralisé pour le calculateur */
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+         /* Styles pour le bouton de calcul */
+        
+         button {
+         width: 50%;
+         padding: 10px;
+         background-color: #28a745;
+         color: white;
+         border: none;
+         border-radius: 5px;
+         font-size: 18px;
+         cursor: pointer;
+         margin-top: 10px;
+        }
+
+         button:hover {
+         background-color: #218838;
+         }
+
+         /* Style pour le message de résultat */
+        .result p {
+        font-size: 18px;
+        color: #333;
+        background-color: #e9ecef;
+        padding: 10px;
+        border-radius: 5px;
+        text-align: center;
+        margin-top: 20px;
+         }
+    </style>
+
+</head>
+
+<body>
+    
+    <div class="header">
+        <div class="overlay">
+            <div>
+                <h1>Roland Tossou-Développeur web</h1>
+                <p>Découvrez mes projets, compétences et passions</p>
+            </div>
+        </div>
+    </div>
+    
+    
+    <!-- Liens de navigation vers les autres sections -->
+        
+    <nav class="navigation">
+        <Ul>
+            <li><a href="index.html">ACCUEIL</a></li>
+            <li><a href="about.html">À PROPOS</a></li> 
+            <li><a href="skills.html">COMPETENCES</a></li>
+            <li><a href="projects.html">PROJETS</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+ 
+         </Ul>
+    </nav>
+    
+    
+    <div class="home-container">
+        
+         <!-- Courte présentation -->
+            <h1>Mon projet</h1>
+            <p>
+            Ce programme est un calculateur de prêt hypothécaire développé en HTML, CSS et JavaScript, conçu pour aider les utilisateurs à calculer leur paiement mensuel en fonction du montant du prêt, du taux d'intérêt annuel et de la durée du prêt en années. L'interface utilisateur est simple et intuitive, permettant de saisir les informations nécessaires via un formulaire. Le script JavaScript applique la formule d'amortissement standard pour calculer le montant du paiement mensuel en tenant compte des intérêts mensuels. Le programme vérifie également la validité des données saisies par l'utilisateur, avec des messages d'alerte en cas d'erreurs (comme un montant de prêt ou un taux d'intérêt invalide), garantissant ainsi un calcul fiable. Le résultat est affiché dynamiquement dans l'interface, offrant une expérience utilisateur fluide et interactive.
+            </p>
+        
+     <!-- Calculateur de prêt hypothécaire -->
+    
+        <h3>Calculateur de Prêt Hypothécaire</h3>
+        <form id="loanForm">
+            <label for="loanAmount">Montant du prêt (€):</label>
+            <input type="number" id="loanAmount" placeholder="Entrez le montant du prêt" required>
+        
+            <label for="interestRate">Taux d'intérêt annuel (%):</label>
+            <input type="number" step="0.01" id="interestRate" placeholder="Entrez le taux d'intérêt" required>
+        
+            <label for="loanDuration">Durée du prêt (années):</label>
+            <input type="number" id="loanDuration" placeholder="Entrez la durée du prêt en années" required>
+        
+            <button type="button" onclick="calculateMortgage()">Calculer le paiement mensuel</button>
+        </form>
+
+      <div class="result">
+         <p id="monthlyPayment">Le paiement mensuel sera affiché ici.</p>
+      </div>
+    </div>
+
+    <script>
+        function calculateMortgage() {
+            // Obtenir les valeurs saisies par l'utilisateur
+            let loanAmount = parseFloat(document.getElementById('loanAmount').value);
+            let interestRate = parseFloat(document.getElementById('interestRate').value);
+            let loanDuration = parseInt(document.getElementById('loanDuration').value);
+    
+            // Valider les entrées
+            if (isNaN(loanAmount) || loanAmount <= 0) {
+                alert("Veuillez entrer un montant de prêt valide.");
+                return;
+            }
+            if (isNaN(interestRate) || interestRate <= 0) {
+                alert("Veuillez entrer un taux d'intérêt valide.");
+                return;
+            }
+            if (isNaN(loanDuration) || loanDuration <= 0) {
+                alert("Veuillez entrer une durée de prêt valide.");
+                return;
+            }
+    
+            // Convertir le taux d'intérêt annuel en taux mensuel
+            let monthlyInterestRate = (interestRate / 100) / 12;
+    
+            // Calculer le nombre total de paiements (en mois)
+            let numberOfPayments = loanDuration * 12;
+    
+            // Formule d'amortissement pour calculer le paiement mensuel
+            let monthlyPayment = loanAmount * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments)) / 
+                                 (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
+    
+            // Afficher le paiement mensuel avec deux décimales
+            document.getElementById('monthlyPayment').innerHTML = `Le paiement mensuel est de : €${monthlyPayment.toFixed(2)}`;
+        }
+    </script>
+     
+     <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 RolandTossouSite. Tous droits réservés.</p>
+            
+            <ul class="footer-links">
+                <li><a href="about.html">À propos</a></li>
+                <li><a href="Contact.html">Contact</a></li>
+            </ul>
+            <div class="footer-social">
+                <a href="https://web.facebook.com/tossrol/" target="_blank">Facebook</a>
+                <a href="https://www.linkedin.com/in/roland-tossou-54218b83/" target="_blank">Linkedin</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+
+
